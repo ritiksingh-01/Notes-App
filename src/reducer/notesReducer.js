@@ -15,13 +15,18 @@ export const notesReducer = (state , {type , payload}) =>{
         case 'ADD_NOTE':
             return {
                 ...state,
-                notes: [...state.notes , {text: state.text , title: state.title , id: uuid()}]
+                notes: [...state.notes , {text: state.text , title: state.title , id: uuid() , isPinned : false}]
             }
         case 'CLEAR_INPUT':
             return {
                 ...state,
                 title : '',
                 text: ''
+            }
+        case 'PIN':
+            return {
+                ...state,
+                notes: state.notes.map(note => note.id === payload ? {...note , isPinned : !isPinned} : note)
             }
         default:
             return state
