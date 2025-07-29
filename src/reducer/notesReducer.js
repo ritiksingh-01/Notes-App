@@ -1,4 +1,3 @@
-
 import { v4 as uuid } from 'uuid';
 export const notesReducer = (state , {type , payload}) =>{
     switch(type){
@@ -26,7 +25,18 @@ export const notesReducer = (state , {type , payload}) =>{
         case 'PIN':
             return {
                 ...state,
-                notes: state.notes.map(note => note.id === payload ? {...note , isPinned : !isPinned} : note)
+                notes: state.notes.map(note => note.id === payload.id ? {...note , isPinned : !note.isPinned} : note)
+            }
+        case "UNPIN":
+            return {
+                ...state,
+                notes: state.notes.map(note => note.id === payload.id ? {...note , isPinned : !note.isPinned} : note)    
+            }
+        case 'ARCHIVE' :
+            return {
+                ...state,
+                archive : [...state.archive , state.notes.find(({id}) => id === payload.id)],
+                notes : state.notes.filter(({id}) => id !== payload.id)
             }
         default:
             return state
