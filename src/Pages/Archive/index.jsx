@@ -4,7 +4,8 @@ import SideBar from "../../Components/SideBar";
 import { useNotes } from "../../Context/notes-context";
 import { NotesCard } from "../../Components/NotesCard";
 export const Archive = () => {
-    const {archive} = useNotes();
+  const { archive, bin } = useNotes();
+
   return (
     <Fragment>
       <Navbar />
@@ -13,12 +14,15 @@ export const Archive = () => {
         <div className="flex  flex-col align-center">
           <div className="flex flex-wrap gap-6 w-screen mt-7">
             {archive?.length > 0 &&
-              archive.map(({ id, title, text}) => (
+              archive.map(({ id, title, text, isImportant }) => (
                 <NotesCard
                   keys={id}
                   id={id}
                   title={title}
                   text={text}
+                  isImportant={isImportant}
+                  archive={archive}
+                  bin={bin}
                 />
               ))}
           </div>
