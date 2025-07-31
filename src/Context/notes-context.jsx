@@ -2,23 +2,26 @@ import { createContext, useReducer, useContext } from "react";
 import { notesReducer } from "../reducer/NotesReducer";
 
 const NotesContext = createContext();
-const NotesProvider = ({children}) =>{
+const NotesProvider = ({ children }) => {
   const initialState = {
     title: "",
     text: "",
     notes: [],
     archive: [],
+    bin: [],
   };
-  const [{ title, text, notes, archive}, notesDispatch] = useReducer(
+  const [{ title, text, notes, archive, bin }, notesDispatch] = useReducer(
     notesReducer,
     initialState
   );
-    return (
-        <NotesContext.Provider value={{title, text, notes, archive, notesDispatch}}>
-            {children}
-        </NotesContext.Provider>
-    )
-}
+  return (
+    <NotesContext.Provider
+      value={{ title, text, notes, archive, bin, notesDispatch }}
+    >
+      {children}
+    </NotesContext.Provider>
+  );
+};
 
 const useNotes = () => useContext(NotesContext);
-export {NotesProvider , useNotes};
+export { NotesProvider, useNotes };
